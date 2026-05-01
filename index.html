@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lelune Bakery's — Cookies Artesanales en Santiago</title>
+  <meta name="description" content="Cookies artesanales hechas a mano en Santiago. Sin conservantes, ingredientes premium, empaque de regalo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       DESIGN TOKENS v2 — Yellow Dominant
+       ============================================= */
+    :root {
+      /* Yellow is now primary */
+      --c-yellow:       #FFCB03;
+      --c-yellow-dark:  #E6B500;
+      --c-yellow-light: #FFF3B0;
+      --c-yellow-soft:  #FFFBEA;
+      --c-yellow-mid:   #FFF0A0;
+
+      /* Purple is now accent */
+      --c-purple:       #52267E;
+      --c-purple-dark:  #3d1c5e;
+      --c-purple-deep:  #2D1B4E;
+      --c-purple-soft:  #F2EBF9;
+
+      /* Backgrounds — warm cream */
+      --c-bg:           #FFFDF5;
+      --c-bg-card:      #FFFFFF;
+      --c-bg-warm:      #FFF8DC;
+
+      /* Text — warm, not cold */
+      --c-text:         #2A1A00;
+      --c-text-2:       #6B5A3E;
+      --c-text-muted:   #A08060;
+      --c-border:       #F0E8C8;
+      --c-border-warm:  #FFDDA0;
+
+      /* Dark sections use deep purple */
+      --c-dark-bg:      #2D1B4E;
+
+      /* Fonts */
+      --f-display: 'Fraunces', Georgia, serif;
+      --f-body:    'Nunito', system-ui, sans-serif;
+
+      /* Spacing */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+      --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px;
+      --sp-16:64px; --sp-20:80px; --sp-24:96px;
+
+      /* Radius */
+      --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-2xl:24px; --r-full:9999px;
+
+      /* Shadows — warm yellow tint */
+      --sh-sm: 0 2px 8px rgba(255,203,3,.15), 0 1px 3px rgba(0,0,0,.05);
+      --sh-md: 0 6px 24px rgba(255,203,3,.18), 0 2px 8px rgba(0,0,0,.06);
+      --sh-lg: 0 16px 48px rgba(255,203,3,.22), 0 4px 16px rgba(0,0,0,.08);
+      --sh-purple: 0 8px 28px rgba(82,38,126,.30);
+
+      --tr: 240ms ease;
+      --tr-slow: 420ms ease;
+    }
+
+    /* =============================================
+       BASE
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--f-body); background: var(--c-bg); color: var(--c-text); line-height: 1.6; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--f-body); }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--sp-6); }
+    .section { padding: var(--sp-20) 0; }
+    .section--yellow  { background: var(--c-yellow); }
+    .section--soft    { background: var(--c-yellow-soft); }
+    .section--warm    { background: var(--c-bg-warm); }
+    .section--dark    { background: var(--c-dark-bg); color: white; }
+    .section--purple  { background: var(--c-purple); color: white; }
+
+    /* Tags */
+    .section-tag {
+      display: inline-block; font-size: .75rem; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--c-purple); background: rgba(82,38,126,.08);
+      border: 1.5px solid rgba(82,38,126,.15);
+      padding: 4px 14px; border-radius: var(--r-full);
+      margin-bottom: var(--sp-4);
+    }
+    .section--dark .section-tag,
+    .section--purple .section-tag {
+      color: var(--c-yellow); background: rgba(255,203,3,.12);
+      border-color: rgba(255,203,3,.3);
+    }
+    .section-title {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 700; line-height: 1.12; color: var(--c-text);
+    }
+    .section--dark .section-title,
+    .section--purple .section-title { color: white; }
+    .section-subtitle {
+      font-size: 1.0625rem; color: var(--c-text-2); line-height: 1.75; max-width: 560px;
+    }
+    .section--dark .section-subtitle,
+    .section--purple .section-subtitle { color: rgba(255,255,255,.72); }
+    .text-center { text-align: center; }
+    .text-center .section-subtitle { margin: 0 auto; }
+
+    /* =============================================
+       BUTTONS
+       ============================================= */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+      padding: 13px 28px; border-radius: var(--r-full);
+      font-family: var(--f-body); font-size: .9375rem; font-weight: 700;
+      letter-spacing: .01em; transition: all var(--tr);
+      border: 2px solid transparent; white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--c-yellow); color: var(--c-purple);
+      box-shadow: 0 6px 20px rgba(255,203,3,.40);
+    }
+    .btn-primary:hover {
+      background: var(--c-yellow-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255,203,3,.55);
+    }
+    .btn-purple {
+      background: var(--c-purple); color: white;
+      box-shadow: var(--sh-purple);
+    }
+    .btn-purple:hover {
+      background: var(--c-purple-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(82,38,126,.40);
+    }
+    .btn-outline-yellow {
+      background: transparent; color: var(--c-yellow); border-color: var(--c-yellow);
+    }
+    .btn-outline-yellow:hover { background: var(--c-yellow); color: var(--c-purple); }
+    .btn-outline-purple {
+      background: transparent; color: var(--c-purple); border-color: var(--c-purple);
+    }
+    .btn-outline-purple:hover { background: var(--c-purple); color: white; }
+    .btn-outline-white {
+      background: transparent; color: white; border-color: rgba(255,255,255,.5);
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,.12); border-color: white; }
+    .btn-lg { padding: 15px 36px; font-size: 1rem; }
+    .btn-sm { padding: 9px 18px; font-size: .875rem; }
+
+    /* =============================================
+       NOTICE BAR
+       ============================================= */
+    .notice-bar {
+      background: var(--c-yellow); color: var(--c-purple);
+      text-align: center; padding: 9px var(--sp-4);
+      font-family: var(--f-body); font-size: .8125rem; font-weight: 700;
+      letter-spacing: .02em; position: relative; z-index: 1001;
+    }
+    .notice-bar a { color: var(--c-purple-dark); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* =============================================
+       HEADER
+       ============================================= */
+    .header {
+      position: sticky; top: 0; z-index: 1000;
+      padding: var(--sp-4) 0;
+      background: rgba(255,253,245,.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--tr), box-shadow var(--tr);
+    }
+    .header.scrolled {
+      border-bottom-color: var(--c-border);
+      box-shadow: 0 2px 16px rgba(255,203,3,.12);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-6); }
+    .header-logo svg { height: 36px; width: auto; }
+    .nav-links { display: none; list-style: none; gap: var(--sp-8); align-items: center; }
+    @media (min-width: 900px) { .nav-links { display: flex; } }
+    .nav-links a {
+      font-size: .9375rem; font-weight: 600; color: var(--c-text-2);
+      transition: color var(--tr); position: relative; padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 2.5px; background: var(--c-yellow); border-radius: 2px;
+      transform: scaleX(0); transition: transform var(--tr);
+    }
+    .nav-links a:hover { color: var(--c-purple); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .header-actions { display: flex; align-items: center; gap: var(--sp-3); }
+    .header-icon-btn {
+      width: 38px; height: 38px; border-radius: var(--r-full);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--c-purple); transition: background var(--tr); font-size: 1.2rem;
+    }
+    .header-icon-btn:hover { background: var(--c-yellow-soft); }
+    .hamburger {
+      display: flex; flex-direction: column; gap: 5px;
+      width: 40px; height: 40px; align-items: center; justify-content: center;
+      border-radius: var(--r-md); transition: background var(--tr);
+    }
+    @media (min-width: 900px) { .hamburger { display: none; } }
+    .hamburger span { display: block; width: 22px; height: 2.5px; background: var(--c-purple); border-radius: 2px; transition: transform var(--tr), opacity var(--tr); }
+    .hamburger:hover { background: var(--c-yellow-soft); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed; inset: 0; background: var(--c-bg); z-index: 999;
+      padding: var(--sp-24) var(--sp-8) var(--sp-8);
+      transform: translateX(-100%); transition: transform var(--tr-slow);
+      display: flex; flex-direction: column; justify-content: center; gap: 0;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--f-display); font-size: 2.25rem; font-weight: 700;
+      color: var(--c-purple); padding: var(--sp-4) 0;
+      border-bottom: 1.5px solid var(--c-border);
+      transition: color var(--tr), padding-left var(--tr);
+    }
+    .mobile-menu a:hover { color: var(--c-yellow-dark); padding-left: var(--sp-4); }
+    .mobile-menu-close {
+      position: absolute; top: var(--sp-6); right: var(--sp-6);
+      font-size: 1.5rem; color: var(--c-purple); padding: var(--sp-2);
+      font-family: var(--f-body); font-weight: 700;
+    }
+
+    /* =============================================
+       HERO
+       ============================================= */
+    .hero {
+      min-height: 95svh;
+      background:
+        linear-gradient(160deg, rgba(45,27,78,.75) 0%, rgba(82,38,126,.55) 45%, rgba(26,16,0,.80) 100%),
+        url('https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=1600&q=80') center/cover no-repeat;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      padding: var(--sp-24) var(--sp-6) var(--sp-20);
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+      background: linear-gradient(to top, var(--c-bg), transparent);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: var(--sp-2);
+      background: rgba(255,203,3,.18); border: 1.5px solid rgba(255,203,3,.4);
+      color: var(--c-yellow); padding: 6px 18px;
+      border-radius: var(--r-full); font-size: .8125rem; font-weight: 700;
+      letter-spacing: .07em; text-transform: uppercase;
+      margin-bottom: var(--sp-6); backdrop-filter: blur(8px);
+    }
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 9vw, 6rem);
+      font-weight: 900; line-height: 1.05;
+      color: white; margin-bottom: var(--sp-6);
+    }
+    .hero-title em { color: var(--c-yellow); font-style: italic; }
+    .hero-desc {
+      font-size: clamp(1rem, 2.5vw, 1.1875rem);
+      color: rgba(255,255,255,.82); line-height: 1.75;
+      max-width: 520px; margin: 0 auto var(--sp-10);
+    }
+    .hero-actions { display: flex; gap: var(--sp-4); justify-content: center; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: var(--sp-12); left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: var(--sp-2);
+      color: rgba(255,255,255,.45); font-size: .6875rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      animation: bounce 2.2s infinite; z-index: 1;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(9px)} }
+
+    /* =============================================
+       TRUST STRIP — full yellow
+       ============================================= */
+    .trust-strip { background: var(--c-yellow); padding: var(--sp-12) 0; }
+    .trust-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: var(--sp-6);
+    }
+    @media (min-width: 640px) { .trust-grid { grid-template-columns: repeat(4,1fr); } }
+    .trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-3); }
+    .trust-icon {
+      width: 60px; height: 60px; border-radius: var(--r-full);
+      background: white; display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem;
+      box-shadow: 0 4px 12px rgba(82,38,126,.15);
+    }
+    .trust-item h4 { font-weight: 800; font-size: .9375rem; color: var(--c-purple); line-height: 1.3; }
+    .trust-item p { font-size: .8125rem; color: rgba(42,26,0,.65); line-height: 1.5; }
+
+    /* =============================================
+       TRANSPARENCIA — nueva sección
+       ============================================= */
+    .transparency-grid {
+      display: grid; gap: var(--sp-6);
+      grid-template-columns: 1fr;
+      margin-top: var(--sp-10);
+    }
+    @media (min-width: 640px) { .transparency-grid { grid-template-columns: repeat(3,1fr); } }
+    .transparency-card {
+      background: white; border-radius: var(--r-2xl);
+      padding: var(--sp-8); border: 2px solid var(--c-border);
+      transition: all var(--tr); text-align: center;
+    }
+    .transparency-card:hover {
+      border-color: var(--c-yellow);
+      box-shadow: var(--sh-md);
+      transform: translateY(-4px);
+    }
+    .transparency-icon { font-size: 2.5rem; margin-bottom: var(--sp-4); }
+    .transparency-card h3 {
+      font-family: var(--f-display); font-size: 1.25rem; font-weight: 700;
+      color: var(--c-purple); margin-bottom: var(--sp-2);
+    }
+    .transparency-card p { font-size: .9375rem; color: var(--c-text-2); line-height: 1.7; }
+
+    /* =============================================
+       STEPS — 5 pasos
+       ============================================= */
+    .steps-row {
+      display: flex; flex-direction: column; gap: var(--sp-4);
+      margin-top: var(--sp-12);
+    }
+    @media (min-width: 768px) {
+      .steps-row { flex-direction: row; align-items: flex-start; }
+    }
+    .step-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: var(--sp-3); position: relative;
+    }
+    @media (min-width: 768px) {
+      .step-item:not(:last-child)::after {
+        content: '→';
+        position: absolute; right: -14px; top: 20px;
+        font-size: 1.25rem; color: var(--c-yellow-dark); font-weight: 900;
+      }
+    }
+    .step-num {
+      width: 52px; height: 52px; border-radius: var(--r-full);
+      background: var(--c-yellow); color: var(--c-purple);
+      font-weight: 900; font-size: 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(255,203,3,.45); flex-shrink: 0;
+    }
+    .step-emoji { font-size: 1.75rem; }
+    .step-item h3 { font-family: var(--f-display); font-size: 1.1rem; font-weight: 700; color: var(--c-purple); line-height: 1.3; }
+    .step-item p { font-size: .875rem; color: var(--c-text-2); line-height: 1.65; max-width: 160px; }
+
+    /* =============================================
+       PRODUCTS — con tabs Individual / Pack
+       ============================================= */
+    .products-tabs {
+      display: flex; gap: var(--sp-2); background: white;
+      border: 2px solid var(--c-border); border-radius: var(--r-full);
+      padding: 4px; width: fit-content; margin: var(--sp-8) auto 0;
+    }
+    .tab-btn {
+      padding: 10px 28px; border-radius: var(--r-full);
+      font-family: var(--f-body); font-size: .9375rem; font-weight: 700;
+      color: var(--c-text-2); transition: all var(--tr); cursor: pointer;
+      border: none; background: transparent;
+    }
+    .tab-btn.active {
+      background: var(--c-yellow); color: var(--c-purple);
+      box-shadow: 0 3px 12px rgba(255,203,3,.45);
+    }
+    .tab-btn:not(.active):hover { background: var(--c-yellow-soft); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Individual grid */
+    .product-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: var(--sp-4);
+      margin-top: var(--sp-8);
+    }
+    @media (min-width: 640px)  { .product-grid { gap: var(--sp-5); } }
+    @media (min-width: 768px)  { .product-grid { grid-template-columns: repeat(3,1fr); gap: var(--sp-6); } }
+    @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(4,1fr); } }
+
+    .product-card {
+      background: var(--c-bg-card); border-radius: var(--r-xl);
+      overflow: visible; box-shadow: var(--sh-sm);
+      transition: all var(--tr); border: 2px solid var(--c-border);
+      position: relative; display: flex; flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-7px); box-shadow: var(--sh-lg);
+      border-color: var(--c-yellow);
+    }
+    .product-img-wrap { position: relative; overflow: hidden; border-radius: var(--r-xl) var(--r-xl) 0 0; }
+    .product-placeholder {
+      width: 100%; aspect-ratio: 1;
+      background: linear-gradient(145deg, #3d1c5e, #52267E, #7340a8);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform var(--tr-slow);
+      position: relative;
+    }
+    .product-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 35% 30%, rgba(255,203,3,.18) 0%, transparent 60%);
+    }
+    .product-card:hover .product-placeholder { transform: scale(1.06); }
+    .product-emoji { font-size: clamp(2.75rem, 6vw, 4rem); position: relative; z-index: 1; filter: drop-shadow(0 4px 10px rgba(0,0,0,.3)); }
+    .product-badge {
+      position: absolute; top: var(--sp-3); left: var(--sp-3);
+      background: var(--c-yellow); color: var(--c-purple);
+      font-size: .6875rem; font-weight: 900; letter-spacing: .04em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: var(--r-full);
+      box-shadow: 0 2px 8px rgba(255,203,3,.5); z-index: 2;
+    }
+    .no-preservatives {
+      position: absolute; top: var(--sp-3); right: var(--sp-3);
+      background: rgba(255,255,255,.92); color: #2a7a2a;
+      font-size: .625rem; font-weight: 800; letter-spacing: .04em;
+      padding: 3px 8px; border-radius: var(--r-full); z-index: 2;
+      border: 1.5px solid rgba(42,122,42,.25);
+    }
+    .product-body {
+      padding: var(--sp-4) var(--sp-4) var(--sp-5);
+      display: flex; flex-direction: column; gap: var(--sp-2); flex: 1;
+    }
+    .product-name { font-weight: 800; font-size: .9375rem; color: var(--c-text); line-height: 1.3; }
+    .product-desc { font-size: .8125rem; color: var(--c-text-2); line-height: 1.55; flex: 1; }
+
+    /* Ingredients accordion */
+    .ingredients-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: .75rem; font-weight: 700; color: var(--c-purple);
+      cursor: pointer; padding: var(--sp-2) 0;
+      border-top: 1px solid var(--c-border); user-select: none;
+    }
+    .ingredients-toggle svg { transition: transform var(--tr); flex-shrink: 0; }
+    .ingredients-toggle.open svg { transform: rotate(180deg); }
+    .ingredients-list {
+      display: none; font-size: .75rem; color: var(--c-text-2);
+      line-height: 1.65; padding: var(--sp-2) 0 var(--sp-1);
+    }
+    .ingredients-list.open { display: block; }
+    .product-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: var(--sp-3); border-top: 1px solid var(--c-border);
+    }
+    .product-price { font-weight: 900; font-size: 1.125rem; color: var(--c-purple); }
+    .product-add {
+      width: 36px; height: 36px; border-radius: var(--r-full);
+      background: var(--c-yellow); color: var(--c-purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.375rem; line-height: 1; font-weight: 900;
+      transition: all var(--tr); flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(255,203,3,.4);
+    }
+    .product-add:hover { background: var(--c-purple); color: white; transform: scale(1.12) rotate(90deg); }
+
+    /* =============================================
+       PACK BUILDER
+       ============================================= */
+    .pack-intro {
+      text-align: center; max-width: 580px; margin: var(--sp-10) auto 0;
+    }
+    .pack-intro p { font-size: 1.0625rem; color: var(--c-text-2); line-height: 1.7; margin-top: var(--sp-3); }
+    .pack-sizes {
+      display: grid; gap: var(--sp-4);
+      grid-template-columns: repeat(3,1fr);
+      margin: var(--sp-8) 0 var(--sp-10);
+    }
+    @media (max-width: 640px) { .pack-sizes { grid-template-columns: 1fr; } }
+    .pack-size-card {
+      border: 2.5px solid var(--c-border); border-radius: var(--r-xl);
+      padding: var(--sp-6); text-align: center; cursor: pointer;
+      transition: all var(--tr); background: white;
+    }
+    .pack-size-card:hover,
+    .pack-size-card.selected {
+      border-color: var(--c-yellow);
+      background: var(--c-yellow-soft);
+      box-shadow: var(--sh-md);
+    }
+    .pack-size-card.selected { border-color: var(--c-yellow-dark); }
+    .pack-size-num {
+      font-family: var(--f-display); font-size: 2.75rem; font-weight: 900;
+      color: var(--c-purple); line-height: 1;
+    }
+    .pack-size-label { font-size: .875rem; font-weight: 700; color: var(--c-text-2); margin-bottom: var(--sp-3); }
+    .pack-size-price { font-size: 1.25rem; font-weight: 900; color: var(--c-purple); margin-top: var(--sp-3); }
+    .pack-size-saving {
+      display: inline-block; background: var(--c-yellow); color: var(--c-purple);
+      font-size: .6875rem; font-weight: 900; padding: 2px 10px;
+      border-radius: var(--r-full); margin-top: var(--sp-2);
+    }
+
+    .pack-builder-title {
+      font-family: var(--f-display); font-size: 1.375rem; font-weight: 700;
+      color: var(--c-purple); margin-bottom: var(--sp-2);
+    }
+    .pack-builder-subtitle { font-size: .9375rem; color: var(--c-text-2); margin-bottom: var(--sp-6); }
+    .pack-counter {
+      display: flex; align-items: center; gap: var(--sp-3);
+      background: var(--c-yellow-soft); border: 2px solid var(--c-yellow);
+      border-radius: var(--r-full); padding: 10px 20px;
+      font-weight: 800; font-size: 1rem; color: var(--c-purple);
+      margin-bottom: var(--sp-6); width: fit-content;
+    }
+    .pack-counter span { font-size: .875rem; font-weight: 600; color: var(--c-text-2); }
+
+    .pack-cookie-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: var(--sp-3);
+    }
+    @media (min-width: 640px)  { .pack-cookie-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (min-width: 1024px) { .pack-cookie-grid { grid-template-columns: repeat(4,1fr); } }
+
+    .pack-cookie-item {
+      border: 2px solid var(--c-border); border-radius: var(--r-xl);
+      padding: var(--sp-4); display: flex; flex-direction: column;
+      align-items: center; gap: var(--sp-2); text-align: center;
+      cursor: pointer; transition: all var(--tr); background: white;
+      position: relative;
+    }
+    .pack-cookie-item:hover { border-color: var(--c-yellow); box-shadow: var(--sh-sm); }
+    .pack-cookie-item.selected {
+      border-color: var(--c-yellow-dark); background: var(--c-yellow-soft);
+    }
+    .pack-cookie-qty {
+      position: absolute; top: -10px; right: -10px;
+      width: 28px; height: 28px; border-radius: var(--r-full);
+      background: var(--c-purple); color: white;
+      font-size: .8125rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      display: none; box-shadow: var(--sh-sm);
+    }
+    .pack-cookie-item.selected .pack-cookie-qty { display: flex; }
+    .pack-cookie-emoji { font-size: 2.5rem; }
+    .pack-cookie-name { font-size: .8125rem; font-weight: 700; color: var(--c-text); line-height: 1.3; }
+    .pack-cookie-price { font-size: .75rem; color: var(--c-text-muted); }
+
+    .pack-qty-controls {
+      display: flex; align-items: center; gap: var(--sp-2); margin-top: var(--sp-1);
+    }
+    .qty-btn {
+      width: 26px; height: 26px; border-radius: var(--r-full);
+      border: 1.5px solid var(--c-border); background: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 700; color: var(--c-purple);
+      cursor: pointer; transition: all var(--tr); line-height: 1;
+    }
+    .qty-btn:hover { background: var(--c-yellow); border-color: var(--c-yellow); }
+    .qty-display { font-size: .875rem; font-weight: 800; color: var(--c-purple); min-width: 20px; text-align: center; }
+
+    .pack-cta-bar {
+      position: sticky; bottom: var(--sp-4); z-index: 100;
+      background: white; border: 2px solid var(--c-yellow);
+      border-radius: var(--r-2xl); padding: var(--sp-4) var(--sp-6);
+      box-shadow: var(--sh-lg); display: flex;
+      align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--sp-4); margin-top: var(--sp-8);
+    }
+    .pack-cta-info { display: flex; flex-direction: column; gap: 4px; }
+    .pack-cta-label { font-size: .8125rem; font-weight: 600; color: var(--c-text-2); }
+    .pack-cta-total { font-family: var(--f-display); font-size: 1.5rem; font-weight: 700; color: var(--c-purple); }
+
+    /* =============================================
+       ABOUT
+       ============================================= */
+    .about-grid {
+      display: grid; gap: var(--sp-12); align-items: center;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) { .about-grid { grid-template-columns: 1fr 1fr; } }
+    .about-img-frame {
+      border-radius: var(--r-2xl); aspect-ratio: 4/5;
+      background: linear-gradient(160deg, var(--c-purple-deep), var(--c-purple));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: var(--sp-4); color: rgba(255,255,255,.6);
+      text-align: center; padding: var(--sp-10);
+    }
+    .about-img-frame .ph-icon { font-size: 4rem; }
+    .about-img-frame .ph-text { font-family: var(--f-display); font-size: 1.125rem; font-style: italic; line-height: 1.6; }
+    .about-img-frame .ph-note {
+      font-size: .75rem; letter-spacing: .08em; text-transform: uppercase;
+      opacity: .5; border: 1px solid rgba(255,255,255,.2);
+      padding: var(--sp-2) var(--sp-4); border-radius: var(--r-full);
+    }
+    .about-list { list-style: none; display: flex; flex-direction: column; gap: var(--sp-3); margin-bottom: var(--sp-8); }
+    .about-list li {
+      display: flex; align-items: flex-start; gap: var(--sp-3);
+      font-size: .9375rem; color: var(--c-text-2); line-height: 1.65;
+    }
+    .about-list li::before { content: '✦'; color: var(--c-yellow-dark); flex-shrink: 0; margin-top: 3px; font-size: .875rem; }
+
+    /* =============================================
+       GIFT BOXES
+       ============================================= */
+    .gift-grid {
+      display: grid; gap: var(--sp-6);
+      grid-template-columns: 1fr;
+      margin-top: var(--sp-12);
+    }
+    @media (min-width: 640px) { .gift-grid { grid-template-columns: repeat(3,1fr); } }
+    .gift-card {
+      background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.15);
+      border-radius: var(--r-2xl); padding: var(--sp-8);
+      transition: all var(--tr); display: flex; flex-direction: column; gap: var(--sp-4);
+    }
+    .gift-card:hover { background: rgba(255,255,255,.13); border-color: rgba(255,203,3,.5); transform: translateY(-5px); }
+    .gift-card.featured {
+      background: rgba(255,203,3,.1); border-color: rgba(255,203,3,.6); position: relative;
+    }
+    .gift-card.featured::before {
+      content: '⭐ Más popular'; position: absolute; top: -13px; left: 50%;
+      transform: translateX(-50%); background: var(--c-yellow); color: var(--c-purple);
+      font-size: .75rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: var(--r-full); white-space: nowrap;
+    }
+    .gift-icon { font-size: 2.75rem; }
+    .gift-card h3 { font-family: var(--f-display); font-size: 1.5rem; font-weight: 700; color: white; }
+    .gift-card p { font-size: .9375rem; color: rgba(255,255,255,.72); line-height: 1.7; flex: 1; }
+    .gift-price { font-weight: 900; font-size: 1.375rem; color: var(--c-yellow); }
+    .gift-price small { font-size: .8125rem; font-weight: 400; color: rgba(255,255,255,.5); }
+
+    /* =============================================
+       TESTIMONIALS
+       ============================================= */
+    .testimonials-grid {
+      display: grid; gap: var(--sp-6);
+      grid-template-columns: 1fr;
+      margin-top: var(--sp-12);
+    }
+    @media (min-width: 640px) { .testimonials-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (min-width: 900px) { .testimonials-grid { grid-template-columns: repeat(3,1fr); } }
+    .testimonial-card {
+      background: white; border-radius: var(--r-2xl); padding: var(--sp-8);
+      box-shadow: var(--sh-sm); border: 2px solid var(--c-border);
+      transition: all var(--tr); display: flex; flex-direction: column; gap: var(--sp-4);
+    }
+    .testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--sh-md); border-color: var(--c-yellow); }
+    .stars { color: var(--c-yellow-dark); font-size: 1rem; letter-spacing: 2px; }
+    .testimonial-text { font-size: .9375rem; color: var(--c-text); line-height: 1.75; font-style: italic; flex: 1; }
+    .testimonial-author { display: flex; align-items: center; gap: var(--sp-3); border-top: 1px solid var(--c-border); padding-top: var(--sp-4); }
+    .author-avatar {
+      width: 42px; height: 42px; border-radius: var(--r-full);
+      background: var(--c-yellow); color: var(--c-purple);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 800; font-size: .875rem; color: var(--c-text); }
+    .author-location { font-size: .75rem; color: var(--c-text-muted); }
+
+    /* =============================================
+       NEWSLETTER
+       ============================================= */
+    .newsletter-inner {
+      background: linear-gradient(135deg, var(--c-purple-deep), var(--c-purple));
+      border-radius: var(--r-2xl); padding: var(--sp-16) var(--sp-10);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .newsletter-inner::before {
+      content: '🌙'; position: absolute; right: -10px; top: -20px;
+      font-size: 11rem; opacity: .05; pointer-events: none; line-height: 1;
+    }
+    .newsletter-form {
+      display: flex; gap: var(--sp-3); max-width: 480px;
+      margin: 0 auto; flex-direction: column;
+    }
+    @media (min-width: 520px) { .newsletter-form { flex-direction: row; } }
+    .newsletter-input {
+      flex: 1; padding: 14px 20px; border-radius: var(--r-full);
+      border: 2px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1);
+      color: white; font-family: var(--f-body); font-size: .9375rem;
+      outline: none; transition: border-color var(--tr);
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,.4); }
+    .newsletter-input:focus { border-color: var(--c-yellow); }
+    .newsletter-note { font-size: .8125rem; color: rgba(255,255,255,.4); margin-top: var(--sp-4); }
+
+    /* =============================================
+       INSTAGRAM BANNER
+       ============================================= */
+    .ig-banner {
+      background: var(--c-yellow); padding: var(--sp-16) 0; text-align: center;
+    }
+    .ig-handle {
+      font-family: var(--f-display); font-size: 2.25rem; font-weight: 900;
+      color: var(--c-purple); margin: var(--sp-4) 0 var(--sp-8);
+    }
+    .ig-banner p { font-size: 1.0625rem; color: rgba(42,26,0,.65); line-height: 1.7; max-width: 500px; margin: var(--sp-3) auto 0; }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .footer { background: var(--c-dark-bg); color: white; padding: var(--sp-16) 0 var(--sp-8); }
+    .footer-grid {
+      display: grid; gap: var(--sp-10); grid-template-columns: 1fr;
+      margin-bottom: var(--sp-12);
+    }
+    @media (min-width: 640px)  { .footer-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (min-width: 1024px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+    .footer-brand-name { font-family: var(--f-display); font-size: 1.75rem; font-weight: 700; color: white; }
+    .footer-brand-name span { color: var(--c-yellow); }
+    .footer-brand p { font-size: .9375rem; color: rgba(255,255,255,.5); line-height: 1.75; margin-top: var(--sp-4); max-width: 280px; }
+    .footer-socials { display: flex; gap: var(--sp-3); margin-top: var(--sp-5); }
+    .social-link {
+      width: 40px; height: 40px; border-radius: var(--r-full);
+      border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.0625rem; color: rgba(255,255,255,.55);
+      transition: all var(--tr);
+    }
+    .social-link:hover { background: var(--c-yellow); border-color: var(--c-yellow); color: var(--c-purple); }
+    .footer-col h5 { font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--c-yellow); margin-bottom: var(--sp-5); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: var(--sp-3); }
+    .footer-links a { font-size: .9375rem; color: rgba(255,255,255,.5); transition: color var(--tr); }
+    .footer-links a:hover { color: white; }
+    .footer-contact { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .footer-contact-item { display: flex; align-items: flex-start; gap: var(--sp-3); font-size: .9375rem; color: rgba(255,255,255,.5); }
+    .footer-divider { height: 1px; background: rgba(255,255,255,.08); margin-bottom: var(--sp-8); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-4); }
+    .footer-bottom p { font-size: .8125rem; color: rgba(255,255,255,.3); }
+    .payment-methods { display: flex; gap: var(--sp-3); align-items: center; }
+    .payment-badge { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r-md); padding: 5px 10px; font-size: .75rem; font-weight: 700; color: rgba(255,255,255,.5); }
+
+    /* =============================================
+       WHATSAPP FAB
+       ============================================= */
+    .whatsapp-fab {
+      position: fixed; bottom: var(--sp-6); right: var(--sp-6); z-index: 999;
+      width: 58px; height: 58px; border-radius: var(--r-full);
+      background: #25D366; color: white;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,.5);
+      transition: all var(--tr); animation: pulse-wa 3s infinite;
+    }
+    .whatsapp-fab:hover { transform: scale(1.1); animation: none; }
+    @keyframes pulse-wa {
+      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,.5); }
+      50%      { box-shadow: 0 6px 36px rgba(37,211,102,.65), 0 0 0 8px rgba(37,211,102,.1); }
+    }
+
+    /* =============================================
+       SCROLL REVEAL
+       ============================================= */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+  </style>
+</head>
+
+<body>
+
+  <!-- NOTICE BAR -->
+  <div class="notice-bar">
+    🍪 Sin conservantes · Ingredientes 100% reales · Agenda tu entrega al <a href="#contacto">confirmar el pedido</a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="header-logo" aria-label="Lelune Bakery's">
+          <svg width="795" height="322" viewBox="0 0 795 322" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:34px;width:auto">
+            <path d="M359.001 258.625V247.013H302.658V56.4087H291.445V258.625H359.001Z" fill="#52267E"/>
+            <path d="M465.282 214.726V141.657H454.07V214.726C454.07 237.95 443.324 249.562 421.834 249.562C410.808 249.562 402.772 246.541 397.726 240.499C392.868 234.457 390.438 225.866 390.438 214.726V141.657H378.945V214.726C378.945 229.265 382.683 240.593 390.158 248.712C397.633 256.831 408.192 260.89 421.834 260.89C435.662 260.89 446.408 256.737 454.07 248.429C461.545 240.31 465.282 229.076 465.282 214.726Z" fill="#52267E"/>
+            <path d="M589.942 258.625V187.538C589.942 172.622 586.111 161.01 578.449 152.702C570.787 144.394 559.761 140.241 545.372 140.241C528.366 140.241 517.247 145.433 512.014 155.817V141.657H500.521V258.625H512.014V187.538C512.014 176.398 514.911 167.618 520.704 161.199C526.31 154.779 534.533 151.569 545.372 151.569C567.423 151.569 578.449 163.936 578.449 188.67V258.625H589.942Z" fill="#52267E"/>
+            <path d="M123.159 263.325V251.714H67.4875V61.1094H56.4087V263.325H123.159Z" fill="#52267E"/>
+            <path d="M251.489 202.434C251.489 185.252 245.857 171.28 234.594 160.518C223.515 149.756 209.482 144.375 192.494 144.375C175.322 144.375 161.104 150.134 149.841 161.651C138.762 172.98 133.223 187.424 133.223 204.983C133.223 222.354 138.854 236.798 150.118 248.315C161.197 259.832 175.322 265.591 192.494 265.591C199.695 265.591 206.158 264.647 211.882 262.759C226.839 257.85 237.917 248.409 245.119 234.437L234.871 229.623C228.593 240.007 221.484 246.899 213.544 250.298C207.266 252.941 200.249 254.263 192.494 254.263C177.353 254.263 165.443 249.542 156.765 240.102C148.456 230.85 144.301 218.294 144.301 202.434H251.489ZM238.748 191.389H145.963C153.349 167.598 168.859 155.703 192.494 155.703C203.758 155.703 213.729 158.913 222.407 165.333C231.455 171.941 236.902 180.626 238.748 191.389Z" fill="#52267E"/>
+            <path d="M724.917 149.252C690.453 145.465 669.831 154.332 659.241 176.408C654.329 185.933 652.521 196.743 654.069 207.336C655.618 217.929 660.445 227.781 667.88 235.522C685.53 253.995 706.988 256.119 738.015 242.634C723.988 264.525 686.83 270.344 660.82 255.103C653.642 251.012 647.358 245.538 642.336 239C637.314 232.462 633.655 224.993 631.575 217.031C629.494 209.069 629.033 200.774 630.22 192.632C631.406 184.491 634.215 176.666 638.483 169.619C642.751 162.571 648.391 156.442 655.072 151.59C661.754 146.738 669.343 143.262 677.393 141.365C685.444 139.468 693.794 139.189 701.955 140.543C710.116 141.897 717.922 144.858 724.917 149.252Z" fill="#FFCB03"/>
+            <path d="M663.793 187.425C670.76 206.003 680.514 214.178 694.634 213.899C700.746 213.903 706.708 212.011 711.699 208.484C716.69 204.957 720.465 199.968 722.502 194.206C727.425 180.458 723.059 168.939 708.103 156.584C722.966 158.07 735.972 175.163 734.299 192.72C734.357 197.638 733.391 202.515 731.463 207.04C729.535 211.565 726.688 215.64 723.102 219.006C719.515 222.373 715.268 224.956 710.63 226.594C705.992 228.231 701.064 228.887 696.159 228.518C691.254 228.15 686.479 226.766 682.138 224.454C677.796 222.142 673.983 218.953 670.939 215.089C667.896 211.225 665.689 206.77 664.459 202.008C663.229 197.246 663.002 192.279 663.793 187.425Z" fill="#52267E"/>
+          </svg>
+        </a>
+        <nav aria-label="Principal">
+          <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#productos">Nuestras Cookies</a></li>
+            <li><a href="#cajas">Cajas de Regalo</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="header-icon-btn" title="WhatsApp">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="#" class="header-icon-btn" title="Carrito" aria-label="Carrito">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          </a>
+          <button class="hamburger" id="hamburgerBtn" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+    <a href="#inicio" class="mobile-link">Inicio</a>
+    <a href="#productos" class="mobile-link">Nuestras Cookies</a>
+    <a href="#cajas" class="mobile-link">Cajas de Regalo</a>
+    <a href="#nosotros" class="mobile-link">Nosotros</a>
+    <a href="#contacto" class="mobile-link">Contacto</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <span class="hero-badge">🌙 Artesanal · Sin conservantes · Santiago</span>
+      <h1 class="hero-title">Cookies hechas<br>con <em>amor</em> real</h1>
+      <p class="hero-desc">Ingredientes que puedes leer, sabores que no olvidarás. Cada cookie de Lelune se hace a mano, sin apuros, con los mejores insumos.</p>
+      <div class="hero-actions">
+        <a href="#productos" class="btn btn-primary btn-lg">Ver nuestras cookies</a>
+        <a href="#como-funciona" class="btn btn-outline-white btn-lg">¿Cómo funciona?</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Descubre</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP — full yellow -->
+  <section class="trust-strip" aria-label="Por qué Lelune">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item reveal">
+          <div class="trust-icon">🌾</div>
+          <h4>Ingredientes<br>Premium</h4>
+          <p>Chocolates belgas, mantequilla real, harinas seleccionadas.</p>
+        </div>
+        <div class="trust-item reveal reveal-delay-1">
+          <div class="trust-icon">🚫</div>
+          <h4>Cero<br>Conservantes</h4>
+          <p>Sin aditivos artificiales. Lo que ves en la etiqueta es todo.</p>
+        </div>
+        <div class="trust-item reveal reveal-delay-2">
+          <div class="trust-icon">✋</div>
+          <h4>100%<br>Artesanal</h4>
+          <p>Elaboradas a mano en lotes pequeños, el mismo día de entrega.</p>
+        </div>
+        <div class="trust-item reveal reveal-delay-3">
+          <div class="trust-icon">🎁</div>
+          <h4>Empaque<br>de Regalo</h4>
+          <p>Presentación cuidada incluida. Lista para regalar, sin extras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPARENCIA -->
+  <section class="section" aria-labelledby="transparency-title">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag reveal">Nuestra promesa</span>
+        <h2 class="section-title reveal reveal-delay-1" id="transparency-title">Sabemos lo que comes.<br>Tú también deberías saberlo.</h2>
+        <p class="section-subtitle reveal reveal-delay-2" style="margin:var(--sp-4) auto 0">
+          En Lelune no escondemos nada. Ingredientes reales, recetas honestas, sin letra chica.
+        </p>
+      </div>
+      <div class="transparency-grid">
+        <div class="transparency-card reveal">
+          <div class="transparency-icon">📋</div>
+          <h3>Ingredientes legibles</h3>
+          <p>Cada producto muestra sus ingredientes en lenguaje normal, no en código de laboratorio. Sabes exactamente qué comes.</p>
+        </div>
+        <div class="transparency-card reveal reveal-delay-1">
+          <div class="transparency-icon">🚫</div>
+          <h3>Sin conservantes</h3>
+          <p>Nada de sorbatos, benzoatos ni E-números raros. Nuestras cookies duran lo que dura algo hecho de verdad: 5 a 7 días.</p>
+        </div>
+        <div class="transparency-card reveal reveal-delay-2">
+          <div class="transparency-icon">🔍</div>
+          <h3>Alérgenos visibles</h3>
+          <p>Gluten, lácteos, frutos secos — los marcamos claro en cada producto para que puedas elegir con confianza.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA — 5 pasos -->
+  <section class="section section--soft" id="como-funciona" aria-labelledby="steps-title">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag reveal">Proceso</span>
+        <h2 class="section-title reveal reveal-delay-1" id="steps-title">Pedir es así de fácil</h2>
+        <p class="section-subtitle reveal reveal-delay-2">Cinco pasos simples para recibir tus cookies perfectas.</p>
+      </div>
+      <div class="steps-row reveal reveal-delay-1">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-emoji">🍪</div>
+          <h3>Elige el formato</h3>
+          <p>¿Cookie individual o armas tu pack? Tú decides cuántas y cuáles.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-emoji">✨</div>
+          <h3>Escoge tus sabores</h3>
+          <p>Mezcla y combina entre todos nuestros sabores disponibles.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-emoji">💌</div>
+          <h3>Añade dedicatoria</h3>
+          <p>¿Es un regalo? Escríbenos el mensaje y lo incluimos gratis.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-emoji">📅</div>
+          <h3>Agenda la entrega</h3>
+          <p>Elige tu fecha. Mínimo 24 hrs para que todo salga perfecto.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-emoji">🎉</div>
+          <h3>¡Recíbelas frescas!</h3>
+          <p>Horneadas el día de entrega, empacadas con amor, listas para ti.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS — tabs Individual / Pack -->
+  <section class="section" id="productos" aria-labelledby="products-title">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag reveal">Catálogo</span>
+        <h2 class="section-title reveal reveal-delay-1" id="products-title">Nuestras Cookies</h2>
+        <p class="section-subtitle reveal reveal-delay-2">Elaboradas a mano el mismo día, con ingredientes que puedes leer.</p>
+        <div class="products-tabs reveal reveal-delay-3">
+          <button class="tab-btn active" data-tab="individual">🍪 Individuales</button>
+          <button class="tab-btn" data-tab="packs">🎁 Arma tu Pack</button>
+        </div>
+      </div>
+
+      <!-- TAB: INDIVIDUAL -->
+      <div class="tab-panel active" id="panel-individual">
+        <div class="product-grid">
+
+          <!-- 1 -->
+          <article class="product-card reveal">
+            <div class="product-img-wrap">
+              <div class="product-placeholder"><div class="product-emoji">🍪</div></div>
+              <span class="no-preservatives">✓ Sin conservantes</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie NY Chocolate Chip</h3>
+              <p class="product-desc">Clásica New York style — crujiente por fuera, gooey por dentro.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, azúcar morena, huevos, chocolate amargo 70%, sal marina, vainilla natural, bicarbonato. <strong>Alérgenos: gluten, lácteos, huevo.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$2.990</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="product-card reveal reveal-delay-1">
+            <div class="product-img-wrap">
+              <div class="product-placeholder" style="background:linear-gradient(145deg,#1a0a2e,#3d1c5e,#52267E)"><div class="product-emoji">🖤</div></div>
+              <span class="product-badge">Nuevo</span>
+              <span class="no-preservatives">✓ Sin conservantes</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie Oreo & Crema</h3>
+              <p class="product-desc">Masa de chocolate oscuro, trozos de Oreo y crema de vainilla artesanal.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, cacao puro en polvo, azúcar, huevos, galletas Oreo, queso crema, vainilla natural. <strong>Alérgenos: gluten, lácteos, huevo.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$2.990</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="product-card reveal reveal-delay-2">
+            <div class="product-img-wrap">
+              <div class="product-placeholder" style="background:linear-gradient(145deg,#4a0a1a,#8b1a3b,#c2185b)"><div class="product-emoji">🌹</div></div>
+              <span class="no-preservantes" style="position:absolute;top:var(--sp-3);right:var(--sp-3);background:rgba(255,255,255,.92);color:#2a7a2a;font-size:.625rem;font-weight:800;padding:3px 8px;border-radius:var(--r-full);z-index:2;border:1.5px solid rgba(42,122,42,.25)">✓ Sin conservantes</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie Red Velvet</h3>
+              <p class="product-desc">Terciopelo rojo con queso crema en el centro. Elegancia en cada mordida.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, azúcar, huevos, cacao, colorante rojo natural (remolacha), queso crema, vainilla, buttermilk. <strong>Alérgenos: gluten, lácteos, huevo.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$3.390</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="product-card reveal reveal-delay-3">
+            <div class="product-img-wrap">
+              <div class="product-placeholder" style="background:linear-gradient(145deg,#1a1000,#3d2800,#8b6914)"><div class="product-emoji">🥜</div></div>
+              <span class="product-badge">Nuevo</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie Avellana Gold</h3>
+              <p class="product-desc">Pasta de avellana artesanal, chocolate belga y almendras tostadas.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, pasta de avellanas artesanal, chocolate belga 60%, almendras, azúcar morena, huevos, sal. <strong>Alérgenos: gluten, lácteos, huevo, frutos secos.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$2.990</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5 -->
+          <article class="product-card reveal">
+            <div class="product-img-wrap">
+              <div class="product-placeholder" style="background:linear-gradient(145deg,#1a1a0a,#4a4a00,#b8a000)"><div class="product-emoji">✨</div></div>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie Dubai</h3>
+              <p class="product-desc">Kataifi, pistacho y chocolate dorado. Inspirada en el viral Dubai chocolate.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, chocolate blanco, pasta de pistacho, fideos kataifi, tahini, azúcar, huevos. <strong>Alérgenos: gluten, lácteos, huevo, sésamo, frutos secos.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$3.980</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6 -->
+          <article class="product-card reveal reveal-delay-1">
+            <div class="product-img-wrap">
+              <div class="product-placeholder" style="background:linear-gradient(145deg,#001a10,#005040,#009070)"><div class="product-emoji">🍋</div></div>
+              <span class="product-badge">Nuevo</span>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie Limón Rosado</h3>
+              <p class="product-desc">Masa cítrica de limón con glaseado de frambuesa fresca.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, azúcar, huevos, ralladura de limón, jugo de limón natural, frambuesas frescas, azúcar flor. <strong>Alérgenos: gluten, lácteos, huevo.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$3.190</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7 -->
+          <article class="product-card reveal reveal-delay-2">
+            <div class="product-img-wrap">
+              <div class="product-placeholder" style="background:linear-gradient(145deg,#1a0f2e,#3d2070,#7340a8)"><div class="product-emoji">🫐</div></div>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie Arándano Blanco</h3>
+              <p class="product-desc">Arándanos frescos con gotas de chocolate blanco belga.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, azúcar, huevos, vainilla natural, arándanos frescos, chocolate blanco belga, sal marina. <strong>Alérgenos: gluten, lácteos, huevo.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$2.990</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8 -->
+          <article class="product-card reveal reveal-delay-3">
+            <div class="product-img-wrap">
+              <div class="product-placeholder" style="background:linear-gradient(145deg,#0a1a0a,#1a4a1a,#2e7a2e)"><div class="product-emoji">🍫</div></div>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Cookie Triple Chocolate</h3>
+              <p class="product-desc">Chocolate negro, de leche y blanco juntos. Para los amantes del cacao.</p>
+              <div class="ingredients-toggle" onclick="toggleIngredients(this)">
+                <span>🔍 Ver ingredientes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="ingredients-list">Harina de trigo, mantequilla, cacao puro, chocolate negro 70%, chocolate de leche, chocolate blanco, azúcar morena, huevos. <strong>Alérgenos: gluten, lácteos, huevo.</strong></div>
+              <div class="product-footer">
+                <span class="product-price">$2.990</span>
+                <button class="product-add" aria-label="Agregar">+</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- TAB: PACKS -->
+      <div class="tab-panel" id="panel-packs">
+        <div class="pack-intro">
+          <h3 class="pack-builder-title" style="font-size:1.5rem">Arma tu pack ideal 🎁</h3>
+          <p>Elige cuántas cookies quieres, luego selecciona tus sabores. Puedes mezclar libremente — nosotros nos encargamos del resto.</p>
+        </div>
+
+        <!-- Tamaño del pack -->
+        <div class="pack-sizes">
+          <div class="pack-size-card selected" data-size="6" data-price="15990" onclick="selectPackSize(this)">
+            <div class="pack-size-num">6</div>
+            <div class="pack-size-label">cookies</div>
+            <div class="pack-size-price">$15.990</div>
+            <span class="pack-size-saving">Ahorra $1.950</span>
+          </div>
+          <div class="pack-size-card" data-size="12" data-price="28990" onclick="selectPackSize(this)">
+            <div class="pack-size-num">12</div>
+            <div class="pack-size-label">cookies</div>
+            <div class="pack-size-price">$28.990</div>
+            <span class="pack-size-saving">Ahorra $6.890</span>
+          </div>
+          <div class="pack-size-card" data-size="24" data-price="54990" onclick="selectPackSize(this)">
+            <div class="pack-size-num">24</div>
+            <div class="pack-size-label">cookies</div>
+            <div class="pack-size-price">$54.990</div>
+            <span class="pack-size-saving">Ahorra $16.770</span>
+          </div>
+        </div>
+
+        <!-- Selector de sabores -->
+        <h3 class="pack-builder-title">Elige tus sabores</h3>
+        <p class="pack-builder-subtitle">Haz clic para agregar. Puedes repetir sabores.</p>
+
+        <div class="pack-counter" id="packCounter">
+          🍪 <strong id="packSelected">0</strong> / <span id="packTotal">6</span> <span>cookies seleccionadas</span>
+        </div>
+
+        <div class="pack-cookie-grid" id="packCookieGrid">
+          <div class="pack-cookie-item" data-name="NY Chocolate Chip" data-price="2990">
+            <div class="pack-cookie-emoji">🍪</div>
+            <div class="pack-cookie-name">NY Choc. Chip</div>
+            <div class="pack-cookie-price">$2.990</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+          <div class="pack-cookie-item" data-name="Oreo & Crema" data-price="2990">
+            <div class="pack-cookie-emoji">🖤</div>
+            <div class="pack-cookie-name">Oreo & Crema</div>
+            <div class="pack-cookie-price">$2.990</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+          <div class="pack-cookie-item" data-name="Red Velvet" data-price="3390">
+            <div class="pack-cookie-emoji">🌹</div>
+            <div class="pack-cookie-name">Red Velvet</div>
+            <div class="pack-cookie-price">$3.390</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+          <div class="pack-cookie-item" data-name="Avellana Gold" data-price="2990">
+            <div class="pack-cookie-emoji">🥜</div>
+            <div class="pack-cookie-name">Avellana Gold</div>
+            <div class="pack-cookie-price">$2.990</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+          <div class="pack-cookie-item" data-name="Dubai" data-price="3980">
+            <div class="pack-cookie-emoji">✨</div>
+            <div class="pack-cookie-name">Cookie Dubai</div>
+            <div class="pack-cookie-price">$3.980</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+          <div class="pack-cookie-item" data-name="Limón Rosado" data-price="3190">
+            <div class="pack-cookie-emoji">🍋</div>
+            <div class="pack-cookie-name">Limón Rosado</div>
+            <div class="pack-cookie-price">$3.190</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+          <div class="pack-cookie-item" data-name="Arándano Blanco" data-price="2990">
+            <div class="pack-cookie-emoji">🫐</div>
+            <div class="pack-cookie-name">Arándano Blanco</div>
+            <div class="pack-cookie-price">$2.990</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+          <div class="pack-cookie-item" data-name="Triple Chocolate" data-price="2990">
+            <div class="pack-cookie-emoji">🍫</div>
+            <div class="pack-cookie-name">Triple Choco.</div>
+            <div class="pack-cookie-price">$2.990</div>
+            <div class="pack-qty-controls">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="qty-display">0</span>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="pack-cookie-qty">0</div>
+          </div>
+        </div>
+
+        <div class="pack-cta-bar" id="packCtaBar">
+          <div class="pack-cta-info">
+            <span class="pack-cta-label" id="packCtaLabel">Elige tus sabores para continuar</span>
+            <span class="pack-cta-total" id="packCtaTotal">$0</span>
+          </div>
+          <button class="btn btn-primary btn-lg" id="packCtaBtn" disabled style="opacity:.45">Agregar pack al carrito</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTRA HISTORIA -->
+  <section class="section section--soft" id="nosotros" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-frame reveal">
+          <div class="ph-icon">🌙</div>
+          <div class="ph-text">"Aquí irá nuestra imagen corporativa y fotos del proceso artesanal"</div>
+          <span class="ph-note">Identidad en desarrollo</span>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <span class="section-tag">Nuestra historia</span>
+          <h2 class="section-title" id="about-title" style="margin-bottom:var(--sp-4)">Más que cookies —<br>una experiencia real</h2>
+          <p class="section-subtitle" style="margin-bottom:var(--sp-6)">Lelune Bakery's nació de la pasión por la repostería honesta. Sin atajos, sin conservantes, sin ingredientes que no puedas pronunciar.</p>
+          <ul class="about-list">
+            <li>Recetas desarrolladas y perfeccionadas durante años</li>
+            <li>Chocolates belgas, harinas premium, mantequilla real — siempre</li>
+            <li>Lotes pequeños para garantizar frescura en cada pedido</li>
+            <li>Empaque pensado para que cada entrega se sienta especial</li>
+          </ul>
+          <a href="#contacto" class="btn btn-purple">Hacer un pedido 🌙</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAJAS DE REGALO -->
+  <section class="section section--dark" id="cajas" aria-labelledby="gift-title">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag reveal">Para regalar</span>
+        <h2 class="section-title reveal reveal-delay-1" id="gift-title">Cajas de Regalo Lelune</h2>
+        <p class="section-subtitle reveal reveal-delay-2">El regalo perfecto siempre tiene buena presentación y mejor sabor.</p>
+      </div>
+      <div class="gift-grid">
+        <div class="gift-card reveal">
+          <div class="gift-icon">🎁</div>
+          <h3>Caja Pequeña</h3>
+          <p>6 cookies a elección, empaque con lazo y tarjeta personalizada incluida.</p>
+          <div class="gift-price">$15.990 <small>/ caja</small></div>
+          <a href="#productos" class="btn btn-outline-white" onclick="document.querySelector('[data-tab=packs]').click()">Armar esta caja</a>
+        </div>
+        <div class="gift-card featured reveal reveal-delay-1">
+          <div class="gift-icon">🎀</div>
+          <h3>Caja Mediana</h3>
+          <p>12 cookies a elección, caja premium con papel tisú, lazo satinado y tarjeta.</p>
+          <div class="gift-price">$28.990 <small>/ caja</small></div>
+          <a href="#productos" class="btn btn-primary" onclick="document.querySelector('[data-tab=packs]').click()">Armar esta caja</a>
+        </div>
+        <div class="gift-card reveal reveal-delay-2">
+          <div class="gift-icon">👑</div>
+          <h3>Caja Personalizada</h3>
+          <p>Cantidad, sabores y presentación a tu medida. Ideal para eventos y empresas.</p>
+          <div class="gift-price">A cotizar</div>
+          <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="btn btn-outline-white">Cotizar por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="section" aria-labelledby="test-title">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag reveal">Lo que dicen</span>
+        <h2 class="section-title reveal reveal-delay-1" id="test-title">Las mejores recomendaciones vienen de quienes nos eligen</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">Las cookies de Lelune son absolutamente increíbles. El empaque es hermoso y el sabor... imposible comer solo una. Las pedí como regalo y fue un éxito total.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">C</div>
+            <div><div class="author-name">Catalina M.</div><div class="author-location">Las Condes, Santiago</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">Me encantó poder armar mi propio pack. Elegí 4 sabores distintos y todos eran increíbles. La Cookie Dubai especialmente — nunca había probado algo así.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">S</div>
+            <div><div class="author-name">Sofía R.</div><div class="author-location">Providencia, Santiago</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">Por fin una bakery que me dice qué lleva cada cosa. Sin conservantes, sin misterios. Se nota la diferencia en el sabor y en cómo me siento después de comerlas.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">M</div>
+            <div><div class="author-name">Martín A.</div><div class="author-location">Ñuñoa, Santiago</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="ig-banner" aria-labelledby="ig-title">
+    <div class="container">
+      <span class="section-tag reveal" style="background:rgba(82,38,126,.1);border-color:rgba(82,38,126,.2)">Síguenos</span>
+      <h2 class="section-title reveal reveal-delay-1" id="ig-title" style="color:var(--c-purple)">Únete a la comunidad Lelune</h2>
+      <p class="reveal reveal-delay-2">Lo mejor de nuestra cocina, primero en Instagram.</p>
+      <div class="ig-handle reveal reveal-delay-3">@lelunebakery</div>
+      <a href="https://instagram.com/lelunebakery" target="_blank" rel="noopener" class="btn btn-purple btn-lg reveal reveal-delay-4">Seguir en Instagram</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section">
+    <div class="container">
+      <div class="newsletter-inner">
+        <span class="section-tag reveal">Newsletter</span>
+        <h2 class="section-title reveal reveal-delay-1" style="color:white;margin-bottom:var(--sp-3)">Lo mejor no siempre se ve en redes</h2>
+        <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto var(--sp-8)">Suscríbete y recibe <strong style="color:var(--c-yellow)">10% de descuento</strong> en tu primera compra, recetas y novedades antes que nadie.</p>
+        <form class="newsletter-form reveal reveal-delay-3" onsubmit="handleNewsletter(event)">
+          <input type="email" class="newsletter-input" placeholder="tu@email.com" required aria-label="Email" />
+          <button type="submit" class="btn btn-primary">Suscribirme</button>
+        </form>
+        <p class="newsletter-note reveal">Sin spam. Puedes darte de baja cuando quieras. 🌙</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contacto">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-name">Lelune <span>Bakery's</span></div>
+          <p>Cookies artesanales sin conservantes, elaboradas con amor en Santiago de Chile.</p>
+          <div class="footer-socials">
+            <a href="https://instagram.com/lelunebakery" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://tiktok.com/@lelunebakery" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.77a8.2 8.2 0 004.79 1.53v-3.4a4.85 4.85 0 01-1.02-.21z"/></svg>
+            </a>
+            <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Menú</h5>
+          <ul class="footer-links">
+            <li><a href="#productos">Nuestras Cookies</a></li>
+            <li><a href="#cajas">Cajas de Regalo</a></li>
+            <li><a href="#nosotros">Nuestra Historia</a></li>
+            <li><a href="#como-funciona">¿Cómo funciona?</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Información</h5>
+          <ul class="footer-links">
+            <li><a href="#">Términos y Condiciones</a></li>
+            <li><a href="#">Política de Devoluciones</a></li>
+            <li><a href="#">Política de Privacidad</a></li>
+            <li><a href="#">Política de Despacho</a></li>
+            <li><a href="#">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contacto</h5>
+          <div class="footer-contact">
+            <div class="footer-contact-item"><span>📍</span><span>Santiago de Chile, Calera de Tango, RM</span></div>
+            <div class="footer-contact-item"><span>💬</span><a href="https://wa.me/56900000000" style="color:rgba(255,255,255,.5);transition:color .25s" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Escribir por WhatsApp</a></div>
+            <div class="footer-contact-item"><span>📸</span><a href="https://instagram.com/lelunebakery" style="color:rgba(255,255,255,.5);transition:color .25s" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,.5)'">@lelunebakery</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <p>© 2026 Lelune Bakery's. Todos los derechos reservados.</p>
+        <div class="payment-methods">
+          <span style="font-size:.75rem;color:rgba(255,255,255,.3);margin-right:4px">Pagos:</span>
+          <span class="payment-badge">Webpay</span>
+          <span class="payment-badge">Transferencia</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FAB -->
+  <a href="https://wa.me/56900000000?text=Hola%20Lelune!%20Quiero%20hacer%20un%20pedido%20🍪"
+     target="_blank" rel="noopener" class="whatsapp-fab" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 40), {passive:true});
+
+    // Mobile menu
+    const hamburgerBtn  = document.getElementById('hamburgerBtn');
+    const mobileMenu    = document.getElementById('mobileMenu');
+    const mobileClose   = document.getElementById('mobileMenuClose');
+    const openMenu  = () => { mobileMenu.classList.add('open'); mobileMenu.setAttribute('aria-hidden','false'); hamburgerBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+    const closeMenu = () => { mobileMenu.classList.remove('open'); mobileMenu.setAttribute('aria-hidden','true'); hamburgerBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+    hamburgerBtn.addEventListener('click', openMenu);
+    mobileClose.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), {threshold:.1, rootMargin:'0px 0px -36px 0px'});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e){
+      const t = document.querySelector(this.getAttribute('href'));
+      if(t){ e.preventDefault(); window.scrollTo({top: t.getBoundingClientRect().top + scrollY - 76, behavior:'smooth'}); }
+    }));
+
+    // Ingredients toggle
+    function toggleIngredients(btn) {
+      btn.classList.toggle('open');
+      btn.nextElementSibling.classList.toggle('open');
+    }
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Pack builder
+    let packSize = 6, packPrice = 15990;
+    const packItems = {};
+
+    function selectPackSize(card) {
+      document.querySelectorAll('.pack-size-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      packSize  = parseInt(card.dataset.size);
+      packPrice = parseInt(card.dataset.price);
+      document.getElementById('packTotal').textContent = packSize;
+      // reset selection
+      document.querySelectorAll('.pack-cookie-item').forEach(item => {
+        item.classList.remove('selected');
+        item.querySelector('.qty-display').textContent = '0';
+        item.querySelector('.pack-cookie-qty').textContent = '0';
+        const key = item.dataset.name;
+        packItems[key] = 0;
+      });
+      updatePackUI();
+    }
+
+    function changeQty(btn, delta) {
+      const item  = btn.closest('.pack-cookie-item');
+      const key   = item.dataset.name;
+      if (!packItems[key]) packItems[key] = 0;
+
+      const selected = Object.values(packItems).reduce((a,b) => a+b, 0);
+      if (delta > 0 && selected >= packSize) return;
+
+      packItems[key] = Math.max(0, (packItems[key] || 0) + delta);
+      const qty = packItems[key];
+      item.querySelector('.qty-display').textContent = qty;
+      const badge = item.querySelector('.pack-cookie-qty');
+      badge.textContent = qty;
+      item.classList.toggle('selected', qty > 0);
+      updatePackUI();
+    }
+
+    function updatePackUI() {
+      const selected = Object.values(packItems).reduce((a,b) => a+b, 0);
+      document.getElementById('packSelected').textContent = selected;
+      const cta = document.getElementById('packCtaBtn');
+      const label = document.getElementById('packCtaLabel');
+      const total = document.getElementById('packCtaTotal');
+      const remaining = packSize - selected;
+      if (selected === 0) {
+        label.textContent = 'Elige tus sabores para continuar';
+        total.textContent = '$0';
+        cta.disabled = true; cta.style.opacity = '.45';
+      } else if (selected < packSize) {
+        label.textContent = `Te faltan ${remaining} cookie${remaining>1?'s':''} para completar el pack`;
+        total.textContent = '$' + packPrice.toLocaleString('es-CL');
+        cta.disabled = true; cta.style.opacity = '.45';
+      } else {
+        label.textContent = `Pack de ${packSize} cookies listo 🎉`;
+        total.textContent = '$' + packPrice.toLocaleString('es-CL');
+        cta.disabled = false; cta.style.opacity = '1';
+      }
+    }
+
+    // Newsletter
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const input = e.target.querySelector('input');
+      btn.textContent = '¡Listo! 🎉'; btn.disabled = true;
+      input.disabled = true; input.style.borderColor = 'var(--c-yellow)';
+      setTimeout(() => { btn.textContent = 'Suscribirme'; btn.disabled = false; input.disabled = false; input.value = ''; }, 4000);
+    }
+  </script>
+</body>
+</html>

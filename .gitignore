@@ -1,0 +1,5 @@
+.auto-memory/
+.claude/
+.cowork-*
+*.lock
+.test
