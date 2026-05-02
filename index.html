@@ -9,6 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=1600&q=80" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>" />
+  <meta property="og:type"         content="website" />
+  <meta property="og:title"        content="Lelune Bakery's — Cookies Artesanales en Santiago" />
+  <meta property="og:description"  content="Cookies artesanales hechas a mano en Santiago. Sin conservantes, ingredientes premium, empaque de regalo." />
+  <meta property="og:image"        content="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=1200&q=80" />
+  <meta property="og:locale"       content="es_CL" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Lelune Bakery's — Cookies Artesanales en Santiago" />
+  <meta name="twitter:description" content="Cookies artesanales hechas a mano en Santiago. Sin conservantes, ingredientes premium, empaque de regalo." />
+  <meta name="twitter:image"       content="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=1200&q=80" />
+
   <style>
     /* =============================================
        DESIGN TOKENS v2 — Yellow Dominant
@@ -757,6 +769,7 @@
     .reveal-delay-2 { transition-delay: .2s; }
     .reveal-delay-3 { transition-delay: .3s; }
     .reveal-delay-4 { transition-delay: .4s; }
+    .reveal-delay-5 { transition-delay: .5s; }
   </style>
 </head>
 
@@ -897,32 +910,32 @@
         <h2 class="section-title reveal reveal-delay-1" id="steps-title">Pedir es así de fácil</h2>
         <p class="section-subtitle reveal reveal-delay-2">Cinco pasos simples para recibir tus cookies perfectas.</p>
       </div>
-      <div class="steps-row reveal reveal-delay-1">
-        <div class="step-item">
+      <div class="steps-row">
+        <div class="step-item reveal reveal-delay-1">
           <div class="step-num">1</div>
           <div class="step-emoji">🍪</div>
           <h3>Elige el formato</h3>
           <p>¿Cookie individual o armas tu pack? Tú decides cuántas y cuáles.</p>
         </div>
-        <div class="step-item">
+        <div class="step-item reveal reveal-delay-2">
           <div class="step-num">2</div>
           <div class="step-emoji">✨</div>
           <h3>Escoge tus sabores</h3>
           <p>Mezcla y combina entre todos nuestros sabores disponibles.</p>
         </div>
-        <div class="step-item">
+        <div class="step-item reveal reveal-delay-3">
           <div class="step-num">3</div>
           <div class="step-emoji">💌</div>
           <h3>Añade dedicatoria</h3>
           <p>¿Es un regalo? Escríbenos el mensaje y lo incluimos gratis.</p>
         </div>
-        <div class="step-item">
+        <div class="step-item reveal reveal-delay-4">
           <div class="step-num">4</div>
           <div class="step-emoji">📅</div>
           <h3>Agenda la entrega</h3>
           <p>Elige tu fecha. Mínimo 24 hrs para que todo salga perfecto.</p>
         </div>
-        <div class="step-item">
+        <div class="step-item reveal reveal-delay-5">
           <div class="step-num">5</div>
           <div class="step-emoji">🎉</div>
           <h3>¡Recíbelas frescas!</h3>
@@ -996,7 +1009,7 @@
           <article class="product-card reveal reveal-delay-2">
             <div class="product-img-wrap">
               <div class="product-placeholder" style="background:linear-gradient(145deg,#4a0a1a,#8b1a3b,#c2185b)"><div class="product-emoji">🌹</div></div>
-              <span class="no-preservantes" style="position:absolute;top:var(--sp-3);right:var(--sp-3);background:rgba(255,255,255,.92);color:#2a7a2a;font-size:.625rem;font-weight:800;padding:3px 8px;border-radius:var(--r-full);z-index:2;border:1.5px solid rgba(42,122,42,.25)">✓ Sin conservantes</span>
+              <span class="no-preservatives">✓ Sin conservantes</span>
             </div>
             <div class="product-body">
               <h3 class="product-name">Cookie Red Velvet</h3>
@@ -1296,14 +1309,14 @@
           <h3>Caja Pequeña</h3>
           <p>6 cookies a elección, empaque con lazo y tarjeta personalizada incluida.</p>
           <div class="gift-price">$15.990 <small>/ caja</small></div>
-          <a href="#productos" class="btn btn-outline-white" onclick="document.querySelector('[data-tab=packs]').click()">Armar esta caja</a>
+          <a href="#productos" class="btn btn-outline-white" onclick="openPackWithSize(6)">Armar esta caja</a>
         </div>
         <div class="gift-card featured reveal reveal-delay-1">
           <div class="gift-icon">🎀</div>
           <h3>Caja Mediana</h3>
           <p>12 cookies a elección, caja premium con papel tisú, lazo satinado y tarjeta.</p>
           <div class="gift-price">$28.990 <small>/ caja</small></div>
-          <a href="#productos" class="btn btn-primary" onclick="document.querySelector('[data-tab=packs]').click()">Armar esta caja</a>
+          <a href="#productos" class="btn btn-primary" onclick="openPackWithSize(12)">Armar esta caja</a>
         </div>
         <div class="gift-card reveal reveal-delay-2">
           <div class="gift-icon">👑</div>
@@ -1458,6 +1471,7 @@
     hamburgerBtn.addEventListener('click', openMenu);
     mobileClose.addEventListener('click', closeMenu);
     document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
     // Scroll reveal
     const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), {threshold:.1, rootMargin:'0px 0px -36px 0px'});
@@ -1543,6 +1557,13 @@
         total.textContent = '$' + packPrice.toLocaleString('es-CL');
         cta.disabled = false; cta.style.opacity = '1';
       }
+    }
+
+    // Abre tab packs y pre-selecciona el tamaño correcto
+    function openPackWithSize(size) {
+      document.querySelector('[data-tab="packs"]').click();
+      const card = document.querySelector(`.pack-size-card[data-size="${size}"]`);
+      if (card) selectPackSize(card);
     }
 
     // Newsletter
