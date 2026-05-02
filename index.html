@@ -1566,14 +1566,37 @@
       if (card) selectPackSize(card);
     }
 
-    // Newsletter
-    function handleNewsletter(e) {
+    // Newsletter — Brevo
+    async function handleNewsletter(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button');
+      const btn   = e.target.querySelector('button');
       const input = e.target.querySelector('input');
-      btn.textContent = '¡Listo! 🎉'; btn.disabled = true;
-      input.disabled = true; input.style.borderColor = 'var(--c-yellow)';
-      setTimeout(() => { btn.textContent = 'Suscribirme'; btn.disabled = false; input.disabled = false; input.value = ''; }, 4000);
+      const email = input.value.trim();
+      btn.textContent = 'Enviando...'; btn.disabled = true;
+      try {
+        const res = await fetch('https://api.brevo.com/v3/contacts', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json',
+            'api-key': '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'
+          },
+          body: JSON.stringify({ email, listIds: [3], updateEnabled: true })
+        });
+        if (res.status === 201 || res.status === 204) {
+          btn.textContent = '¡Listo! 🎉'; input.disabled = true;
+          input.style.borderColor = 'var(--c-yellow)';
+        } else {
+          const data = await res.json();
+          if (data.code === 'duplicate_parameter') {
+            btn.textContent = '¡Ya estás suscrito! 🎉'; input.disabled = true;
+          } else {
+            btn.textContent = 'Error, intenta de nuevo'; btn.disabled = false;
+          }
+        }
+      } catch {
+        btn.textContent = 'Error, intenta de nuevo'; btn.disabled = false;
+      }
     }
   </script>
 </body>
