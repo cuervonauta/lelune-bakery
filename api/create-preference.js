@@ -1,67 +1,64 @@
 import { MercadoPagoConfig, Preference } from 'mercadopago'
-
-const DELIVERY_COST = 3500
+import { supabase } from './lib/supabase.js'
+import { generateOrderNumber, buildOrder, buildMpItems } from './lib/orders.js'
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  const { items, customer, delivery } = req.body
+  const { items, customer, delivery } = req.body ?? {}
 
   if (!items?.length || !customer?.name || !customer?.email || !customer?.phone) {
     return res.status(400).json({ error: 'Faltan campos requeridos' })
   }
 
-  const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN })
-  const preference = new Preference(client)
-  const siteUrl = process.env.SITE_URL || 'https://lelunebakery.cl'
+  const orderNumber = generateOrderNumber()
+  const order = buildOrder({ orderNumber, customer, items, delivery })
 
-  const mpItems = items.map(item => ({
-    title: String(item.name).slice(0, 256),
-    quantity: Math.max(1, Number(item.qty)),
-    unit_price: Number(item.price),
-    currency_id: 'CLP'
-  }))
-
-  if (delivery?.type === 'envio') {
-    mpItems.push({
-      title: 'Despacho a domicilio — RM (Packet)',
-      quantity: 1,
-      unit_price: DELIVERY_COST,
-      currency_id: 'CLP'
-    })
+  // 1. Guardar orden en Supabase (status: pending_payment)
+  const { error: dbError } = await supabase.from('orders').insert(order)
+  if (dbError) {
+    console.error('Supabase insert error:', dbError.message)
+    return res.status(500).json({ error: 'Error al registrar el pedido' })
   }
 
+  // 2. Crear Preference en MercadoPago
+  const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN })
+  const siteUrl = process.env.SITE_URL
+
   try {
-    const result = await preference.create({
+    const result = await new Preference(client).create({
       body: {
-        items: mpItems,
+        external_reference: orderNumber,
+        items: buildMpItems(items, delivery?.type),
         payer: {
           name: customer.name,
           email: customer.email,
           phone: { area_code: '56', number: String(customer.phone) }
         },
         back_urls: {
-          success: `${siteUrl}/success.html`,
-          failure: `${siteUrl}/failure.html`,
-          pending: `${siteUrl}/success.html`
+          success: `${siteUrl}/success.html?order=${orderNumber}`,
+          failure: `${siteUrl}/failure.html?order=${orderNumber}`,
+          pending: `${siteUrl}/success.html?order=${orderNumber}`
         },
         auto_return: 'approved',
         statement_descriptor: 'LELUNE BAKERY',
-        metadata: {
-          delivery_type: delivery?.type || 'retiro',
-          delivery_address: delivery?.address || '',
-          notes: delivery?.notes || ''
-        }
+        notification_url: `${siteUrl}/api/webhook-mp`
       }
     })
 
-    res.status(200).json({ init_point: result.init_point })
+    // 3. Guardar preference ID en la orden
+    await supabase
+      .from('orders')
+      .update({ mp_preference_id: result.id })
+      .eq('order_number', orderNumber)
+
+    return res.status(200).json({ init_point: result.init_point, order_number: orderNumber })
+
   } catch (err) {
-    console.error('MercadoPago error:', err?.message || err)
-    res.status(500).json({ error: 'Error al crear preferencia de pago' })
+    console.error('MercadoPago error:', err?.message ?? err)
+    // Revertir la orden si MP falla
+    await supabase.from('orders').delete().eq('order_number', orderNumber)
+    return res.status(500).json({ error: 'Error al crear la preferencia de pago' })
   }
 }
