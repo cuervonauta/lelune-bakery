@@ -848,6 +848,56 @@
     .cart-total-label { font-size: .9375rem; color: var(--c-text-2); font-weight: 600; }
     .cart-total-amount { font-family: var(--f-display); font-size: 1.75rem; font-weight: 700; color: var(--c-purple); }
     .cart-note { font-size: .75rem; color: var(--c-text-muted); text-align: center; }
+
+    /* =============================================
+       DEDICATORIA INPUT
+       ============================================= */
+    .dedicatoria-wrap {
+      margin-bottom: var(--sp-6);
+      background: var(--c-yellow-soft); border: 2px solid var(--c-border-warm);
+      border-radius: var(--r-xl); padding: var(--sp-5);
+    }
+    .dedicatoria-label {
+      display: flex; align-items: center; gap: var(--sp-2);
+      font-weight: 700; font-size: .9375rem; color: var(--c-purple);
+      margin-bottom: var(--sp-3);
+    }
+    .dedicatoria-input {
+      width: 100%; padding: 12px 16px;
+      border: 2px solid var(--c-border-warm); border-radius: var(--r-lg);
+      background: white; font-family: var(--f-body); font-size: .9375rem;
+      color: var(--c-text); resize: none; outline: none;
+      transition: border-color var(--tr); line-height: 1.6;
+    }
+    .dedicatoria-input::placeholder { color: var(--c-text-muted); }
+    .dedicatoria-input:focus { border-color: var(--c-yellow-dark); }
+    .dedicatoria-counter { font-size: .75rem; color: var(--c-text-muted); text-align: right; margin-top: var(--sp-1); }
+
+    /* =============================================
+       FAQ
+       ============================================= */
+    .faq-list { display: flex; flex-direction: column; gap: var(--sp-3); margin-top: var(--sp-10); }
+    .faq-item {
+      background: white; border: 2px solid var(--c-border);
+      border-radius: var(--r-xl); overflow: hidden;
+      transition: border-color var(--tr);
+    }
+    .faq-item.open { border-color: var(--c-yellow); }
+    .faq-question {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-4); padding: var(--sp-5) var(--sp-6);
+      cursor: pointer; user-select: none;
+    }
+    .faq-question span { font-weight: 700; font-size: 1rem; color: var(--c-text); line-height: 1.4; }
+    .faq-chevron { flex-shrink: 0; color: var(--c-purple); transition: transform var(--tr); }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      display: none; padding: 0 var(--sp-6) var(--sp-5);
+      font-size: .9375rem; color: var(--c-text-2); line-height: 1.75;
+      border-top: 1px solid var(--c-border);
+    }
+    .faq-answer.open { display: block; }
+    .faq-answer a { color: var(--c-purple); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
   </style>
 </head>
 
@@ -1363,6 +1413,12 @@
           </div>
         </div>
 
+        <div class="dedicatoria-wrap reveal">
+          <div class="dedicatoria-label">💌 ¿Es un regalo? Agrega una dedicatoria <span style="font-weight:400;font-size:.8125rem;color:var(--c-text-muted)">(opcional)</span></div>
+          <textarea class="dedicatoria-input" id="dedicatoriaInput" rows="2" maxlength="120" placeholder="Ej: Feliz cumpleaños Cata! Con mucho amor 🍪"></textarea>
+          <div class="dedicatoria-counter"><span id="dedicatoriaCount">0</span>/120</div>
+        </div>
+
         <div class="pack-cta-bar" id="packCtaBar">
           <div class="pack-cta-info">
             <span class="pack-cta-label" id="packCtaLabel">Elige tus sabores para continuar</span>
@@ -1496,6 +1552,68 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section section--soft" id="faq" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag reveal">Preguntas frecuentes</span>
+        <h2 class="section-title reveal reveal-delay-1" id="faq-title">Todo lo que necesitas saber</h2>
+        <p class="section-subtitle reveal reveal-delay-2">¿Tienes dudas? Aquí respondemos las más comunes.</p>
+      </div>
+      <div class="faq-list reveal reveal-delay-2">
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Con cuánta anticipación debo hacer mi pedido?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="faq-answer">Necesitamos mínimo <strong>24 horas de anticipación</strong> para preparar tu pedido. Para eventos o fechas especiales (cumpleaños, matrimonios, empresas), te recomendamos avisarnos con al menos 3 días de anticipación para asegurar disponibilidad.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Hacen despacho a domicilio?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="faq-answer">Sí, despachamos dentro de la Región Metropolitana. También puedes coordinar retiro en Calera de Tango. El costo de despacho se calcula según tu ubicación y lo coordinamos directamente por WhatsApp al confirmar el pedido.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Cuánto duran las cookies?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="faq-answer">Al no tener conservantes, nuestras cookies duran entre <strong>5 y 7 días</strong> en óptimas condiciones guardadas en un recipiente hermético a temperatura ambiente. Si las guardas en refrigerador pueden durar hasta 10 días. ¡Aunque honestamente nunca duran tanto!</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Tienen opciones sin gluten o veganas?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="faq-answer">Actualmente nuestras recetas contienen gluten y productos lácteos. Sin embargo, podemos preparar versiones adaptadas para necesidades específicas — <a href="https://wa.me/56950732322" target="_blank" rel="noopener">escríbenos por WhatsApp</a> y buscamos la mejor opción para ti.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Cómo pago mi pedido?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="faq-answer">Aceptamos <strong>transferencia bancaria y Webpay</strong>. El pago se coordina al confirmar el pedido por WhatsApp. Para pedidos grandes o empresas podemos emitir boleta.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Puedo pedir cookies para eventos corporativos?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="faq-answer">¡Claro que sí! Hacemos pedidos corporativos, kits de regalo para equipos, eventos y celebraciones. Para cotizaciones de más de 24 unidades, <a href="https://wa.me/56950732322" target="_blank" rel="noopener">escríbenos directamente</a> y preparamos una propuesta personalizada.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer" id="contacto">
     <div class="container">
@@ -1531,7 +1649,7 @@
             <li><a href="#">Política de Devoluciones</a></li>
             <li><a href="#">Política de Privacidad</a></li>
             <li><a href="#">Política de Despacho</a></li>
-            <li><a href="#">Preguntas Frecuentes</a></li>
+            <li><a href="#faq">Preguntas Frecuentes</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1746,10 +1864,11 @@
     function addPackToCart() {
       const selections = Object.entries(packItems).filter(([, qty]) => qty > 0);
       if (selections.length === 0) return;
-      const packEmojis = {'NY Chocolate Chip':'🍪','Oreo & Crema':'🖤','Red Velvet':'🌹','Avellana Gold':'🥜','Dubai':'✨','Limón Rosado':'🍋','Arándano Blanco':'🫐','Triple Chocolate':'🍫'};
-      const label = `Pack ${packSize} cookies (${selections.map(([n,q])=>`${q}×${n}`).join(', ')})`;
+      const dedicatoria = document.getElementById('dedicatoriaInput').value.trim();
+      const label = `Pack ${packSize} cookies (${selections.map(([n,q])=>`${q}×${n}`).join(', ')})${dedicatoria ? ` 💌 "${dedicatoria}"` : ''}`;
       cart[label] = { price: packPrice, emoji: '🎁', qty: 1 };
-      // reset pack UI
+      document.getElementById('dedicatoriaInput').value = '';
+      document.getElementById('dedicatoriaCount').textContent = '0';
       selectPackSize(document.querySelector('.pack-size-card.selected'));
       updateCartBadge();
       openCart();
@@ -1764,6 +1883,26 @@
       const total = items.reduce((s, [, { price, qty }]) => s + price * qty, 0);
       const msg = `Hola Lelune! 🍪 Quiero hacer un pedido:\n\n${lines}\n\nTotal: $${total.toLocaleString('es-CL')}\n\n¿Cómo continúo? 😊`;
       window.open(`https://wa.me/56950732322?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Dedicatoria counter
+    document.getElementById('dedicatoriaInput').addEventListener('input', function() {
+      document.getElementById('dedicatoriaCount').textContent = this.value.length;
+    });
+
+    // FAQ toggle
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      // cierra todos
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-answer').classList.remove('open');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        item.querySelector('.faq-answer').classList.add('open');
+      }
     }
 
     // Abre tab packs y pre-selecciona el tamaño correcto
