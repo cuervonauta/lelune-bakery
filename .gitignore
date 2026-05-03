@@ -3,3 +3,6 @@
 .cowork-*
 *.lock
 .test
+node_modules/
+.env.local
+.env

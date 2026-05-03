@@ -933,6 +933,68 @@
     }
     .faq-answer.open { display: block; }
     .faq-answer a { color: var(--c-purple); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* =============================================
+       CHECKOUT MODAL
+       ============================================= */
+    .checkout-overlay {
+      position: fixed; inset: 0;
+      background: rgba(45,27,78,.55);
+      z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--tr);
+      backdrop-filter: blur(3px);
+    }
+    .checkout-overlay.open { opacity: 1; pointer-events: all; }
+    .checkout-modal {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-radius: 24px 24px 0 0;
+      z-index: 201;
+      max-height: 92vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform var(--tr-slow);
+    }
+    @media (min-width: 600px) {
+      .checkout-modal {
+        top: 50%; left: 50%; bottom: auto; right: auto;
+        transform: translate(-50%, -42%) scale(.98);
+        border-radius: 20px;
+        width: 100%; max-width: 480px; max-height: 88vh;
+        opacity: 0; transition: transform var(--tr-slow), opacity var(--tr);
+      }
+      .checkout-overlay.open .checkout-modal { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+    .checkout-overlay.open .checkout-modal { transform: translateY(0); }
+    .checkout-handle { width: 36px; height: 4px; background: var(--c-border); border-radius: var(--r-full); margin: 12px auto 0; }
+    .checkout-body { padding: var(--sp-5) var(--sp-6) var(--sp-8); }
+    .checkout-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-2); }
+    .checkout-title { font-family: var(--f-display); font-size: 1.375rem; font-weight: 700; color: var(--c-purple); }
+    .checkout-close { background: var(--c-yellow-soft); border: none; width: 32px; height: 32px; border-radius: var(--r-full); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; color: var(--c-text-2); }
+    .checkout-subtitle { font-size: .8125rem; color: var(--c-text-muted); margin-bottom: var(--sp-5); }
+    .checkout-summary { background: var(--c-yellow-soft); border: 1px solid var(--c-border-warm); border-radius: var(--r-lg); padding: var(--sp-4); margin-bottom: var(--sp-5); font-size: .875rem; }
+    .checkout-summary-row { display: flex; justify-content: space-between; align-items: baseline; color: var(--c-text-2); padding: 2px 0; gap: var(--sp-4); }
+    .checkout-summary-row span:first-child { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .checkout-summary-row.total { font-weight: 900; font-size: 1.0625rem; color: var(--c-purple); border-top: 1px solid var(--c-border-warm); padding-top: var(--sp-2); margin-top: var(--sp-2); }
+    .checkout-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: var(--sp-4); }
+    .checkout-label { font-size: .6875rem; font-weight: 900; color: var(--c-text-muted); letter-spacing: .08em; text-transform: uppercase; }
+    .checkout-input { width: 100%; padding: 12px 14px; background: var(--c-yellow-soft); border: 1.5px solid var(--c-border); border-radius: var(--r-lg); font-family: var(--f-body); font-size: 1rem; font-weight: 600; color: var(--c-text); outline: none; transition: border-color var(--tr); }
+    .checkout-input:focus { border-color: var(--c-yellow-dark); background: white; }
+    .checkout-tel-wrap { display: flex; align-items: center; gap: var(--sp-2); }
+    .checkout-tel-prefix { font-weight: 800; font-size: .9375rem; color: var(--c-text-muted); }
+    .checkout-delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin-bottom: var(--sp-4); }
+    .checkout-delivery-btn { padding: var(--sp-4); border: 2px solid var(--c-border); border-radius: var(--r-lg); text-align: center; cursor: pointer; transition: all var(--tr); background: white; }
+    .checkout-delivery-btn.active { border-color: var(--c-yellow-dark); background: var(--c-yellow-soft); }
+    .checkout-delivery-btn .d-icon { font-size: 1.5rem; }
+    .checkout-delivery-btn .d-label { font-weight: 800; font-size: .875rem; color: var(--c-text); display: block; margin-top: 4px; }
+    .checkout-delivery-btn .d-price { font-size: .75rem; color: var(--c-text-muted); display: block; }
+    .checkout-delivery-btn.active .d-label { color: var(--c-purple); }
+    .checkout-btn-pagar { width: 100%; padding: 15px; background: var(--c-purple); color: white; border: none; border-radius: var(--r-xl); font-family: var(--f-body); font-size: 1.0625rem; font-weight: 900; cursor: pointer; transition: all var(--tr); display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: var(--sp-5); box-shadow: var(--sh-purple); }
+    .checkout-btn-pagar:hover:not(:disabled) { background: var(--c-purple-dark); transform: translateY(-1px); }
+    .checkout-btn-pagar:disabled { opacity: .55; cursor: not-allowed; }
+    .checkout-secure { text-align: center; font-size: .75rem; color: var(--c-text-muted); margin-top: var(--sp-3); display: flex; align-items: center; justify-content: center; gap: 5px; }
   </style>
 </head>
 
@@ -1009,12 +1071,71 @@
         <span class="cart-total-label">Total estimado</span>
         <span class="cart-total-amount" id="cartTotalAmount">$0</span>
       </div>
-      <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="pedirPorWhatsApp()">
-        Pedir por WhatsApp 💬
+      <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="closeCart();abrirCheckout()">
+        Continuar al pago →
       </button>
-      <p class="cart-note">Confirmarás detalles, fecha y despacho por WhatsApp</p>
+      <p class="cart-note">Pago seguro con MercadoPago</p>
     </div>
   </aside>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="checkout-overlay" id="checkoutOverlay" onclick="cerrarCheckout(event)">
+    <div class="checkout-modal" id="checkoutModal">
+      <div class="checkout-handle"></div>
+      <div class="checkout-body">
+        <div class="checkout-header">
+          <h2 class="checkout-title">Datos del pedido</h2>
+          <button class="checkout-close" onclick="cerrarCheckout()" aria-label="Cerrar">✕</button>
+        </div>
+        <p class="checkout-subtitle">Completa tus datos para continuar al pago seguro.</p>
+        <div class="checkout-summary" id="checkoutSummary"></div>
+        <div class="checkout-field">
+          <label class="checkout-label" for="chkNombre">Nombre completo</label>
+          <input type="text" class="checkout-input" id="chkNombre" placeholder="Tu nombre" autocomplete="name" />
+        </div>
+        <div class="checkout-field">
+          <label class="checkout-label" for="chkEmail">Email</label>
+          <input type="email" class="checkout-input" id="chkEmail" placeholder="tu@email.com" autocomplete="email" />
+        </div>
+        <div class="checkout-field">
+          <label class="checkout-label" for="chkTelefono">WhatsApp</label>
+          <div class="checkout-tel-wrap">
+            <span class="checkout-tel-prefix">+56</span>
+            <input type="tel" class="checkout-input" id="chkTelefono" placeholder="9 1234 5678" autocomplete="tel" style="flex:1" />
+          </div>
+        </div>
+        <label class="checkout-label" style="display:block;margin-bottom:10px">Tipo de entrega</label>
+        <div class="checkout-delivery-grid">
+          <div class="checkout-delivery-btn active" id="btnEnvio" onclick="setDelivery('envio')">
+            <div class="d-icon">🚚</div>
+            <span class="d-label">Despacho</span>
+            <span class="d-price">$3.500 · toda la RM</span>
+          </div>
+          <div class="checkout-delivery-btn" id="btnRetiro" onclick="setDelivery('retiro')">
+            <div class="d-icon">🏪</div>
+            <span class="d-label">Retiro</span>
+            <span class="d-price">Gratis · Calera de Tango</span>
+          </div>
+        </div>
+        <div id="chkDireccionWrap" class="checkout-field">
+          <label class="checkout-label" for="chkDireccion">Dirección de despacho</label>
+          <input type="text" class="checkout-input" id="chkDireccion" placeholder="Calle, número, depto — comuna" />
+        </div>
+        <div class="checkout-field">
+          <label class="checkout-label" for="chkNotas">Notas (opcional)</label>
+          <input type="text" class="checkout-input" id="chkNotas" placeholder="Referencias, instrucciones..." />
+        </div>
+        <button class="checkout-btn-pagar" id="btnPagar" onclick="submitCheckout()">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+          <span id="btnPagarLabel">Pagar</span>
+        </button>
+        <p class="checkout-secure">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Pago seguro con MercadoPago
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="inicio">
@@ -1607,7 +1728,7 @@
             <span>¿Hacen despacho a domicilio?</span>
             <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
-          <div class="faq-answer">Sí, despachamos dentro de la Región Metropolitana. También puedes coordinar retiro en Calera de Tango. El costo de despacho se calcula según tu ubicación y lo coordinamos directamente por WhatsApp al confirmar el pedido.</div>
+          <div class="faq-answer">Sí, despachamos a toda la Región Metropolitana vía Packet. El costo es <strong>$3.500</strong> a domicilio, de lunes a viernes entre 2 y 9 PM. También puedes coordinar retiro <strong>sin costo</strong> en Calera de Tango (9–12 PM).</div>
         </div>
 
         <div class="faq-item">
@@ -1631,7 +1752,7 @@
             <span>¿Cómo pago mi pedido?</span>
             <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
-          <div class="faq-answer">Aceptamos <strong>transferencia bancaria y Webpay</strong>. El pago se coordina al confirmar el pedido por WhatsApp. Para pedidos grandes o empresas podemos emitir boleta.</div>
+          <div class="faq-answer">Aceptamos <strong>MercadoPago</strong> (tarjeta débito, crédito y más) directamente en la web. También puedes pagar por <strong>transferencia bancaria</strong>. Para pedidos corporativos o empresas podemos emitir boleta — <a href="https://wa.me/56950732322" target="_blank" rel="noopener">escríbenos</a>.</div>
         </div>
 
         <div class="faq-item">
@@ -1914,16 +2035,107 @@
       openCart();
     }
 
-    function pedirPorWhatsApp() {
-      const items = Object.entries(cart);
-      if (items.length === 0) return;
-      const lines = items.map(([name, { price, qty }]) =>
-        `• ${qty}x ${name} ($${(price * qty).toLocaleString('es-CL')})`
-      ).join('\n');
-      const total = items.reduce((s, [, { price, qty }]) => s + price * qty, 0);
-      const msg = `Hola Lelune! 🍪 Quiero hacer un pedido:\n\n${lines}\n\nTotal: $${total.toLocaleString('es-CL')}\n\n¿Cómo continúo? 😊`;
-      window.open(`https://wa.me/56950732322?text=${encodeURIComponent(msg)}`, '_blank');
+    // --- CHECKOUT MERCADOPAGO ---
+    const DELIVERY_COST = 3500;
+    let deliveryType = 'envio';
+
+    function getCartSubtotal() {
+      return Object.values(cart).reduce((s, { price, qty }) => s + price * qty, 0);
     }
+
+    function setDelivery(type) {
+      deliveryType = type;
+      document.getElementById('btnEnvio').classList.toggle('active', type === 'envio');
+      document.getElementById('btnRetiro').classList.toggle('active', type === 'retiro');
+      document.getElementById('chkDireccionWrap').style.display = type === 'envio' ? '' : 'none';
+      actualizarResumenCheckout();
+    }
+
+    function actualizarResumenCheckout() {
+      const subtotal = getCartSubtotal();
+      const envio = deliveryType === 'envio' ? DELIVERY_COST : 0;
+      const total = subtotal + envio;
+
+      let html = Object.entries(cart).map(([name, {price, qty}]) =>
+        `<div class="checkout-summary-row">
+          <span>${qty > 1 ? qty + '× ' : ''}${name}</span>
+          <span style="white-space:nowrap;font-weight:700">$${(price*qty).toLocaleString('es-CL')}</span>
+        </div>`
+      ).join('');
+
+      html += deliveryType === 'envio'
+        ? `<div class="checkout-summary-row"><span>Despacho (RM)</span><span style="font-weight:700">$${DELIVERY_COST.toLocaleString('es-CL')}</span></div>`
+        : `<div class="checkout-summary-row"><span>Retiro en local</span><span style="color:var(--c-purple);font-weight:700">Gratis</span></div>`;
+
+      html += `<div class="checkout-summary-row total"><span>Total</span><span>$${total.toLocaleString('es-CL')}</span></div>`;
+      document.getElementById('checkoutSummary').innerHTML = html;
+      document.getElementById('btnPagarLabel').textContent = `Pagar $${total.toLocaleString('es-CL')}`;
+    }
+
+    function abrirCheckout() {
+      if (Object.keys(cart).length === 0) return;
+      actualizarResumenCheckout();
+      document.getElementById('checkoutOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarCheckout(e) {
+      if (e && e.target && e.target !== document.getElementById('checkoutOverlay')) return;
+      document.getElementById('checkoutOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    async function submitCheckout() {
+      const nombre   = document.getElementById('chkNombre').value.trim();
+      const email    = document.getElementById('chkEmail').value.trim();
+      const telefono = document.getElementById('chkTelefono').value.replace(/\D/g, '');
+      const direccion = document.getElementById('chkDireccion').value.trim();
+      const notas    = document.getElementById('chkNotas').value.trim();
+
+      if (!nombre || !email || !telefono) {
+        alert('Por favor completa nombre, email y teléfono.'); return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Ingresa un email válido.'); return;
+      }
+      if (telefono.length < 8) {
+        alert('Ingresa un teléfono válido (8+ dígitos).'); return;
+      }
+      if (deliveryType === 'envio' && !direccion) {
+        alert('Ingresa tu dirección de despacho.'); return;
+      }
+
+      const btn = document.getElementById('btnPagar');
+      const label = document.getElementById('btnPagarLabel');
+      btn.disabled = true;
+      label.textContent = 'Procesando...';
+
+      const items = Object.entries(cart).map(([name, {price, qty}]) => ({ name, price, qty }));
+
+      try {
+        const res = await fetch('/api/create-preference', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items,
+            customer: { name: nombre, email, phone: telefono },
+            delivery: { type: deliveryType, address: direccion, notes: notas }
+          })
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const { init_point } = await res.json();
+        window.location.href = init_point;
+      } catch (err) {
+        console.error(err);
+        btn.disabled = false;
+        const total = getCartSubtotal() + (deliveryType === 'envio' ? DELIVERY_COST : 0);
+        label.textContent = `Pagar $${total.toLocaleString('es-CL')}`;
+        alert('Hubo un error al procesar el pago. Por favor intenta de nuevo o escríbenos por WhatsApp.');
+      }
+    }
+
+    // Escape key cierra checkout
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarCheckout(); });
 
     // Dedicatoria counter
     document.getElementById('dedicatoriaInput').addEventListener('input', function() {
