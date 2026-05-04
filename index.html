@@ -1270,7 +1270,7 @@
 
       <!-- TAB: INDIVIDUAL -->
       <div class="tab-panel active" id="panel-individual">
-        <div class="product-grid">
+        <div class="product-grid" id="product-grid">
 
           <!-- 1 -->
           <article class="product-card reveal">
@@ -2196,6 +2196,55 @@
         btn.textContent = 'Error, intenta de nuevo'; btn.disabled = false;
       }
     }
+  </script>
+
+  <script>
+    (async function loadDynamicProducts() {
+      const grid = document.getElementById('product-grid');
+      if (!grid) return;
+
+      function formatCLP(n) {
+        return '$' + Number(n).toLocaleString('es-CL');
+      }
+
+      function buildCard(p, delay) {
+        const delayClass = delay > 0 ? ` reveal-delay-${Math.min(delay, 5)}` : '';
+        const imgHtml = p.image_url
+          ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
+          : `<div class="product-placeholder"><div class="product-emoji">🍪</div></div>`;
+
+        return `<article class="product-card reveal${delayClass}">
+          <div class="product-img-wrap">${imgHtml}</div>
+          <div class="product-body">
+            <h3 class="product-name">${p.name}</h3>
+            <p class="product-desc">${p.description || ''}</p>
+            <div class="product-footer">
+              <span class="product-price">${formatCLP(p.price)}</span>
+              <button class="product-add" aria-label="Agregar"
+                onclick="addToCart(${JSON.stringify(p.name)},${p.price},'🍪')">+</button>
+            </div>
+          </div>
+        </article>`;
+      }
+
+      try {
+        const res = await fetch('/api/products');
+        if (!res.ok) return;
+        const products = await res.json();
+        if (!Array.isArray(products) || products.length === 0) return;
+
+        grid.innerHTML = products.map((p, i) => buildCard(p, i % 4)).join('');
+
+        // Re-observe reveal animations for new elements
+        const obs = new IntersectionObserver(
+          entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }),
+          { threshold: .1, rootMargin: '0px 0px -36px 0px' }
+        );
+        grid.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+      } catch {
+        // silently keep hardcoded products
+      }
+    })();
   </script>
 </body>
 </html>
